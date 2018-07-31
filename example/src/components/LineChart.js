@@ -10,7 +10,8 @@ am4core.useTheme(am4themes_animated);
 class LineChart extends Component {
 
     state = {
-        chart: null
+        chart: null,
+        dateAxis: null
     }
 
     componentDidMount() {
@@ -46,6 +47,8 @@ class LineChart extends Component {
         dateAxis.renderer.grid.template.location = 0;
         dateAxis.renderer.labels.template.fill = am4core.color("#e59165");
 
+        this.setState(() => ({ dateAxis }))
+
         const dateAxis2 = chart.xAxes.push(new am4charts.DateAxis());
         dateAxis2.renderer.grid.template.location = 0;
         dateAxis2.renderer.labels.template.fill = am4core.color("#dfcc64");
@@ -69,13 +72,15 @@ class LineChart extends Component {
         series.fill = am4core.color("#e59165");
         series.stroke = am4core.color("#e59165");
 
-        var axisRange = dateAxis.axisRanges.create();
+        const axisRange = dateAxis.axisRanges.create();
         axisRange.value = new Date(2015, 0, 5);
-        axisRange.grid.strokeOpacity = 0.8;
-        axisRange.label.fillOpacity = 0.8;
+        axisRange.grid.stroke = am4core.color("#A96478");
+        axisRange.grid.strokeWidth = 2;
+        axisRange.grid.strokeOpacity = 1;
+        axisRange.label.inside = true;
         axisRange.label.text = "middle";
-        axisRange.label.rotation = -90;
-        console.log('axis ranges', axisRange)
+        axisRange.label.fill = axisRange.grid.stroke;
+        axisRange.label.verticalCenter = "bottom";
 
         let axisTooltip = dateAxis.tooltip;
         axisTooltip.background.fill = am4core.color("#e59165");
@@ -119,6 +124,8 @@ class LineChart extends Component {
         const scrollbarX = new am4charts.XYChartScrollbar();
         scrollbarX.series.push(series);
         scrollbarX.series.push(series2);
+        // scrollbarX.children.push(axisRange)
+        console.log(scrollbarX)
         chart.scrollbarX = scrollbarX;
 
         chart.legend = new am4charts.Legend();
@@ -137,7 +144,7 @@ class LineChart extends Component {
         return (
             <div>
                 <div id="lineChart" style={{ width: "100%", height: "500px" }} />
-                {this.state.chart ? <AmchartsReact chart={this.state.chart} /> : null}
+                {this.state.chart ? <AmchartsReact chart={this.state.chart} dateAxis={this.state.dateAxis} color={am4core.color("#396478")} /> : null}
             </div>
         );
     }

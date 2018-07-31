@@ -5,7 +5,7 @@
   "author": "https://github.com/manoj016",
   "license": "MIT",
   "repository": "https://github.com/manoj016/amchart4-react.git",
-  "homepage": "https://manoj016.github.io/amcharts4-react",
+  "homepage": "https://manoj016.github.io/amchart4-react",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
   "jsnext:main": "dist/index.es.js",
