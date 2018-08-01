@@ -39,10 +39,17 @@ class LineChart extends Component {
     return middleLine;
   }
 
+  // handleClick = (e) => {
+  //   if (!ReactDOM.findDOMNode(this).contains(e.target)) {
+  //     this.setState(() => ({show: false}))
+  //   }
+  // }
+
   componentWillUnmount() {
     if (this.chart) {
       this.chart.dispose();
     }
+    // document.removeEventListener('click', this.handleClick, false);
   }
 
   createChart = (chart) => {
@@ -54,16 +61,6 @@ class LineChart extends Component {
     dateAxis.renderer.labels.template.fill = am4core.color("#e59165");
 
     this.setState(() => ({dateAxis}))
-
-    const axisRange = dateAxis.axisRanges.create();
-    axisRange.date = new Date(2015, 0, 5);
-    axisRange.grid.stroke = am4core.color("#A96478");
-    axisRange.grid.strokeWidth = 2;
-    axisRange.grid.strokeOpacity = 1;
-    axisRange.label.text = "middle";
-    axisRange.label.fill = axisRange.grid.stroke;
-    axisRange.label.verticalCenter = "bottom";
-    console.log('axis', axisRange);
 
     const dateAxis2 = chart.xAxes.push(new am4charts.DateAxis());
     dateAxis2.renderer.grid.template.location = 0;
@@ -79,6 +76,17 @@ class LineChart extends Component {
     valueAxis2.renderer.grid.template.strokeDasharray = "2,3";
     valueAxis2.renderer.labels.template.fill = am4core.color("#dfcc64");
     valueAxis2.renderer.minWidth = 60;
+
+    const axisRange = dateAxis.axisRanges.create();
+    axisRange.date = new Date(2015, 0, 5);
+    // axisRange.value = 1200;
+    axisRange.grid.stroke = am4core.color("#A96478");
+    axisRange.grid.strokeWidth = 2;
+    axisRange.grid.strokeOpacity = 1;
+    // axisRange.label.text = "middle";
+    axisRange.label.fill = axisRange.grid.stroke;
+    axisRange.label.verticalCenter = "bottom";
+    console.log('axis', axisRange);
 
     const series = chart.series.push(new am4charts.LineSeries());
     series.name = "2016";
