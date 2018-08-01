@@ -1,12 +1,8 @@
-/**
- * @class AmchartsReact
- */
-
 import * as React from 'react'
 
 import styles from './AmchartsReact.css'
 
-export type Props = { chart: any, dateAxis: any, color: any };
+export type Props = { chart: any, xAxis: any, color: any };
 
 type Range = {
   start: number,
@@ -22,6 +18,10 @@ export type State = {
   range: Range
 }
 
+/**
+ * @class AmchartsReact
+ *
+ */
 export default class AmchartsReact extends React.Component<Props, State> {
 
   state = {
@@ -36,21 +36,40 @@ export default class AmchartsReact extends React.Component<Props, State> {
     }
   }
 
+  /**
+   * After component will be mounted this method will be invoked
+   *
+   */
   componentDidMount() {
     this.cursorBehaviorChangeHandler(this.props.chart)
   }
 
-  createAxisRange = (axis: any, range: Range, dateAxis: any) => {
-    const axisRange = dateAxis.axisRanges.create();
+  /**
+   * Create a axis range according to the range in the given axis
+   *
+   * @param axis - x axis to know the position
+   * @param {Range} range - range of the axis range
+   * @param xAxis - On this axis the axis range will be created
+   */
+  createAxisRange = (axis: any, range: Range, xAxis: any): void => {
+    const axisRange = xAxis.axisRanges.create();
     axisRange.date = axis.positionToDate(range.start)
     axisRange.endDate = axis.positionToDate(range.end)
     axisRange.axisFill.fill = this.props.color
     axisRange.axisFill.fillOpacity = 0.4
     axisRange.label.disabled = true
-    dateAxis.validateData()
+    xAxis.validateData()
   };
 
-  cursorBehaviorChangeHandler = (chart: any) => {
+  /**
+   * Change the default cursor behavior to "selectX" from "zoomX"
+   * And create a axis range on the range after "selectended"
+   *
+   * @param chart
+   */
+  cursorBehaviorChangeHandler = (chart: any): void => {
+
+    const { xAxis } = this.props;
 
     chart.cursor.behavior = "selectX";
 
@@ -65,7 +84,7 @@ export default class AmchartsReact extends React.Component<Props, State> {
 
       this.setState(() => ({axises, range}))
 
-      this.createAxisRange(axises[0], range, this.props.dateAxis)
+      this.createAxisRange(axises[0], range, xAxis)
 
       const {x, y} = ev.target.point
 
@@ -73,19 +92,26 @@ export default class AmchartsReact extends React.Component<Props, State> {
     })
 
     chart.events.on("hit", () => {
+      const { length } = xAxis.axisRanges
       this.setState(() => ({show: false}))
-      if (this.props.dateAxis.axisRanges.length > 1) {
-        this.props.dateAxis.axisRanges.removeIndex(this.props.dateAxis.axisRanges.length - 1)
+      if (length > 1) {
+        xAxis.axisRanges.removeIndex(length - 1)
       }
     })
 
   }
 
-  handleZoom = () => {
+  /**
+   * handles the zoom after the zoom context menu is clicked by user
+   *
+   */
+  handleZoom = (): void => {
     const {axises, range} = this.state
+    const {xAxis} = this.props
+    const {length} = xAxis.axisRanges
 
-    if (this.props.dateAxis.axisRanges.length > 1) {
-      this.props.dateAxis.axisRanges.removeIndex(this.props.dateAxis.axisRanges.length - 1)
+    if (length > 1) {
+      xAxis.axisRanges.removeIndex(length - 1)
     }
 
     axises.map((axis: any) => {
@@ -94,6 +120,11 @@ export default class AmchartsReact extends React.Component<Props, State> {
     this.setState(() => ({show: false}))
   }
 
+  /**
+   * Renders this React component
+   *
+   * @returns {any}
+   */
   render() {
     const {show, top, left} = this.state;
     const style = show ? {
