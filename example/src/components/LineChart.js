@@ -138,8 +138,6 @@ class LineChart extends Component {
     const scrollbarX = new am4charts.XYChartScrollbar();
     scrollbarX.series.push(series);
     scrollbarX.series.push(series2);
-    // scrollbarX.children.push(axisRange)
-    console.log(scrollbarX)
     chart.scrollbarX = scrollbarX;
 
     chart.legend = new am4charts.Legend();
@@ -161,7 +159,7 @@ class LineChart extends Component {
         {this.state.chart ?
           <AmchartsReact
             chart={this.state.chart}
-            dateAxis={this.state.dateAxis}
+            xAxis={this.state.dateAxis}
             color={am4core.color("#838383")}
           />
           : null}
