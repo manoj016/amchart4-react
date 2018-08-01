@@ -46,11 +46,13 @@ export default class AmchartsReact extends React.Component<Props, State> {
     axisRange.endDate = axis.positionToDate(range.end)
     axisRange.axisFill.fill = this.props.color
     axisRange.axisFill.fillOpacity = 0.2
-
-    console.log(axisRange)
+    axisRange.label.disabled = true
+    dateAxis.validateData()
   };
 
   cursorBehaviorChangeHandler = (chart: any) => {
+
+    console.log('before', this.props.dateAxis.axisRanges)
 
     chart.cursor.behavior = "selectX";
 
@@ -62,8 +64,6 @@ export default class AmchartsReact extends React.Component<Props, State> {
       xAxes.values.map((value: any) => {
         axises.push(value)
       })
-
-      console.log(chart.cursor, ev)
 
       this.setState(() => ({axises, range}))
 
@@ -77,6 +77,7 @@ export default class AmchartsReact extends React.Component<Props, State> {
     chart.events.on("hit", () => {
       this.setState(() => ({show: false}))
     })
+
   }
 
   handleZoom = () => {
@@ -86,6 +87,7 @@ export default class AmchartsReact extends React.Component<Props, State> {
       axis.zoomToDates(axis.positionToDate(range.start), axis.positionToDate(range.end))
     })
     this.setState(() => ({show: false}))
+    console.log(this.props.dateAxis.axisRanges)
   }
 
   render() {
