@@ -162,7 +162,7 @@ class LineChart extends Component {
           <AmchartsReact
             chart={this.state.chart}
             dateAxis={this.state.dateAxis}
-            color={am4core.color("#396478")}
+            color={am4core.color("#838383")}
           />
           : null}
       </div>
