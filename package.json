@@ -1,8 +1,8 @@
 {
   "name": "amchart4-react",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "",
-  "author": "https://github.com/manoj016",
+  "author": "Manoj Kumar Maharana",
   "license": "MIT",
   "repository": "https://github.com/manoj016/amchart4-react.git",
   "homepage": "https://manoj016.github.io/amchart4-react",
@@ -15,7 +15,6 @@
     "build": "rollup -c",
     "start": "rollup -c -w",
     "prepare": "yarn build",
-    "predeploy": "cd example && yarn install && yarn build",
     "deploy": "gh-pages -d example/build"
   },
   "dependencies": {},
