@@ -6,9 +6,16 @@
 
 ## Install
 
+npm
 ```bash
 npm install --save amchart4-react
 ```
+
+yarn
+```bash
+yarn add amchart4-react
+```
+
 
 ## Usage
 
