@@ -4,6 +4,8 @@
 
 [![NPM](https://img.shields.io/npm/v/amchart4-react.svg)](https://www.npmjs.com/package/amchart4-react) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
+Its basically a small library that changes the behaviour of default amcharts4 drag zooming and show a context menu after dragging of zoom and patternsearch if you press zoom then only it will zoom.
+
 ## Install
 
 npm
