@@ -41,7 +41,7 @@
     "rollup-plugin-peer-deps-external": "^2.2.0",
     "rollup-plugin-postcss-modules": "^1.0.8",
     "rollup-plugin-typescript2": "^0.16.1",
-    "rollup-plugin-url": "^1.4.0",
+    "rollup-plugin-url": "^2.0.0",
     "typescript": "^3.0.1"
   },
   "files": [
